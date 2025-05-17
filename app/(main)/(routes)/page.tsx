@@ -26,7 +26,7 @@ export default function Home() {
   if (!isLoaded || loading) {
     return (
       <div className="flex justify-center items-center h-screen w-screen bg-[#292b2f]">
-        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-e-white border-solid" />
+        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-e-white border-solid [animation-duration:0.3s]" />
       </div>
     );
   }

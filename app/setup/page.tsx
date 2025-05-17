@@ -1,9 +1,9 @@
-
 import { ModeToggle } from "@/components/mode-toggle";
 import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
 import { redirect } from "next/navigation";
+import { InitialModal } from "@/components/modals/initial-modal";
 
 const setUp = async () => {
   const profile = await initialProfile();
@@ -17,8 +17,8 @@ const setUp = async () => {
       },
     },
   });
-  if(server){
-    return redirect(`/servers/${server.id}`)
+  if (server) {
+    return redirect(`/servers/${server.id}`);
   }
   return (
     <div>
@@ -28,7 +28,9 @@ const setUp = async () => {
       </ClerkProvider>
       <ModeToggle />
 
-      <div></div>
+      <div>
+        <InitialModal />
+      </div>
     </div>
   );
 };
