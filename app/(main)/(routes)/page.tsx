@@ -15,7 +15,7 @@ export default function Home() {
       setLoading(true);
       // Wait for 3 seconds before redirecting
       const timeout = setTimeout(() => {
-        router.push("/dashboard");
+        router.push("/setup");
       }, 3000);
 
       // Clean up timeout if component unmounts
@@ -25,8 +25,8 @@ export default function Home() {
 
   if (!isLoaded || loading) {
     return (
-      <div className="flex justify-center items-center h-screen w-screen bg-fuchsia-900">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-e-white border-solid" />
+      <div className="flex justify-center items-center h-screen w-screen bg-[#292b2f]">
+        <div className="animate-spin rounded-full h-28 w-28 border-t-4 border-e-white border-solid" />
       </div>
     );
   }

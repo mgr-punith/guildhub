@@ -10,6 +10,7 @@ import {
   // UserButton,
 } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { cn } from "@/lib/utils";
 
 const font = Open_Sans({
   variable: "--font-open-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
-        <body className={`${font.variable} antialiased`}>
+        <body className={cn(font.className, "bg-white dark:bg-[#292b2f]")}>
           <ThemeProvider
             attribute="class"
             enableSystem={false}
