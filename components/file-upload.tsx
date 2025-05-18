@@ -31,7 +31,7 @@ export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
   return (
     <div>
       <UploadDropzone
-        className="h-52 w-52 shadow-xl text-black bg-indigo-200 ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300"
+        className="h-52 w-52 shadow-xl text-black bg-indigo-200 ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300 ut-ready:bg-black"
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
           onChange(res?.[0].ufsUrl);
