@@ -39,8 +39,8 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
           <Image
             src={imageUrl}
             alt="Cover image"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
           />
         </div>
       </button>
