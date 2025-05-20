@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
+import { ServerHeader } from "./server-header";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -45,21 +46,19 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     (channel) => channel.type === ChannelType.VIDEO
   );
 
-  const members = server?.members.filter(
-    (member) => member.profileId === profile.id
+  const currentMember = server?.members.find(
+    (member) => member.profile.userId === profile.id
   );
+  const role = currentMember?.role
 
   if (!server) {
     return redirect("/");
   }
-  const role = server.members.find(
-    (member) => member.profileId === profile.id
-  )?.role;
+  
 
-
-  return(
+  return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-zinc-200 shadow-lg">
-        server
+      <ServerHeader server={server} role={role} />
     </div>
-  )
+  );
 };
