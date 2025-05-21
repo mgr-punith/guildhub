@@ -7,6 +7,8 @@ export async function PATCH(
   req: Request,
   { params }: { params: { serverId: string } }
 ) {
+  const { serverId } = await params;
+  
   try {
     const profile = await currentProfile();
 
@@ -14,13 +16,13 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!params.serverId) {
+    if (!serverId) {
       return new NextResponse("Server Id is Missing", { status: 401 });
     }
 
     const server = await db.server.update({
       where: {
-        id: params.serverId,
+        id: serverId,
         profileId: profile.id,
       },
       data: {
@@ -28,7 +30,7 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(server)
+    return NextResponse.json(server);
   } catch (error) {
     console.log("[SERVER_ID]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
