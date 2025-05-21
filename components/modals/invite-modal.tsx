@@ -42,9 +42,10 @@ export const InviteModal = () => {
     try {
       setIsLoading(true);
       const response = await axios.patch(
-        `api/servers/${server?.id}/invite-code`
+        `/api/servers/${server?.id}/invite-code`
       );
       onOpen("invite", { server: response.data });
+      console.log("okay",response.data)
     } catch (error) {
       console.log(error);
     } finally {
@@ -70,6 +71,7 @@ export const InviteModal = () => {
                 disabled={isLoading}
                 className="border border-gray-600 shadow-lg bg-zinc-400 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
                 value={invteLink}
+                readOnly
               />
               <Button
                 disabled={isLoading}
