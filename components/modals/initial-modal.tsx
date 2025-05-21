@@ -118,7 +118,7 @@ export const InitialModal = () => {
                       <FormControl>
                         <Input
                           disabled={isLoading}
-                          className="bg- border-1 shadow-lg focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
+                          className="border-1 shadow-lg focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
                           placeholder="Enter Server name"
                           {...field}
                         />
