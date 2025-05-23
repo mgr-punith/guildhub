@@ -6,6 +6,10 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css"; // Import Font Awesome CSS
+config.autoAddCss = false; // Prevent Font Awesome from auto-injecting its CSS
+
 const font = Open_Sans({
   variable: "--font-open-sans",
   subsets: ["latin"],
