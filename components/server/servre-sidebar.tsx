@@ -13,7 +13,7 @@ import {
 import { ServerHeader } from "./server-header";
 import { ServerSearch } from "./server-search";
 import { ScrollArea } from "../ui/scroll-area";
-import { ShieldMinusIcon, ShieldUser } from "lucide-react";
+import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -22,23 +22,20 @@ interface ServerSidebarProps {
 const iconMap = {
   [ChannelType.TEXT]: (
     <FontAwesomeIcon
-      className="mr-2 h-4 w-4"
+      className="mr-2 h-4 w-4 text-gray-300"
       icon={faHashtag}
-      style={{ color: "#222326" }}
     />
   ),
   [ChannelType.AUDIO]: (
-    <FontAwesomeIcon
-      className="mr-2 h-4 w-4"
-      icon={faMicrophone}
-      style={{ color: "#222326" }}
+    <MicIcon
+      className="mr-2 h-4 w-4 text-gray-300"
+      // icon={faMicrophone}
     />
   ),
   [ChannelType.VIDEO]: (
     <FontAwesomeIcon
-      className="mr-2 h-4 w-4"
+      className="mr-2 h-4 w-4 text-gray-300"
       icon={faVideo}
-      style={{ color: "#222326" }}
     />
   ),
 };
