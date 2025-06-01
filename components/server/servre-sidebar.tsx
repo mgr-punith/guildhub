@@ -4,11 +4,7 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { ChannelType, MemberRole } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHashtag,
-  faMicrophone,
-  faVideo,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHashtag, faVideo } from "@fortawesome/free-solid-svg-icons";
 
 import { ServerHeader } from "./server-header";
 import { ServerSearch } from "./server-search";
@@ -21,29 +17,18 @@ interface ServerSidebarProps {
 
 const iconMap = {
   [ChannelType.TEXT]: (
-    <FontAwesomeIcon
-      className="mr-2 h-4 w-4 text-gray-300"
-      icon={faHashtag}
-    />
+    <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-300" icon={faHashtag} />
   ),
-  [ChannelType.AUDIO]: (
-    <MicIcon
-      className="mr-2 h-4 w-4 text-gray-300"
-      // icon={faMicrophone}
-    />
-  ),
+  [ChannelType.AUDIO]: <MicIcon className="mr-2 h-4 w-4 text-gray-300" />,
   [ChannelType.VIDEO]: (
-    <FontAwesomeIcon
-      className="mr-2 h-4 w-4 text-gray-300"
-      icon={faVideo}
-    />
+    <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-300" icon={faVideo} />
   ),
 };
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: <ShieldMinusIcon className="h-4 w-4 text-sky-600" />,
-  [MemberRole.ADMIN]: <ShieldUser className="h-4 w-4 text-sky-600" />,
+  [MemberRole.ADMIN]: <ShieldUser className="h-4 w-4 text-rose-700" />,
 };
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   const profile = await currentUser();
