@@ -10,6 +10,8 @@ import { ServerHeader } from "./server-header";
 import { ServerSearch } from "./server-search";
 import { ScrollArea } from "../ui/scroll-area";
 import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
+import { Separator } from "../ui/separator";
+import { ServerSection } from "./server_section";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -123,6 +125,17 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
             ]}
           />
         </div>
+        <Separator className="bg-zinc-400 dark:bg-zinc-600 my-2 rounded-md" />
+        {!!textChannels?.length && (
+          <div>
+            <ServerSection
+              label="Text Channels"
+              role={role}
+              channelType={ChannelType.TEXT}
+              sectionType="channels"
+            />
+          </div>
+        )}
       </ScrollArea>
     </div>
   );
