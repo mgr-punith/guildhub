@@ -12,6 +12,8 @@ import { ScrollArea } from "../ui/scroll-area";
 import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { ServerSection } from "./server_section";
+import { ServerChannels } from "./server_channels";
+import { ServerMember } from "./server_member";
 
 interface ServerSidebarProps {
   serverId: string;
@@ -134,6 +136,74 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
               channelType={ChannelType.TEXT}
               sectionType="channels"
             />
+            <div className="space-y-[2px]">
+              {textChannels.map((channel) => (
+                <ServerChannels
+                  key={channel.id}
+                  channel={channel}
+                  server={server}
+                  role={role}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!!audioChannels?.length && (
+          <div>
+            <ServerSection
+              label="Voice Channels"
+              role={role}
+              channelType={ChannelType.AUDIO}
+              sectionType="channels"
+            />
+            <div className="space-y-[2px]">
+              {audioChannels.map((channel) => (
+                <ServerChannels
+                  key={channel.id}
+                  channel={channel}
+                  server={server}
+                  role={role}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!!videoChannels?.length && (
+          <div>
+            <ServerSection
+              label="Video Channels"
+              role={role}
+              channelType={ChannelType.VIDEO}
+              sectionType="channels"
+            />
+            <div className="space-y-[2px]">
+              {videoChannels.map((channel) => (
+                <ServerChannels
+                  key={channel.id}
+                  channel={channel}
+                  server={server}
+                  role={role}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!!server.members?.length && (
+          <div>
+            <ServerSection
+              label="Members"
+              role={role}
+              sectionType="members"
+              server={server}
+            />
+            <div className="space-y-[2px]">
+              {server.members.map((member) => (
+                <ServerMember />
+              ))}
+            </div>
           </div>
         )}
       </ScrollArea>
