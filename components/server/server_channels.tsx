@@ -41,7 +41,7 @@ export const ServerChannels = ({
     <button
       onClick={() => {}}
       className={cn(
-        "group relative px-2 py-2 w-full rounded-md flex items-center gap-x-2 hover:bg-zinc-700/10  hover:dark:bg-zinc-700/50  transition ",
+        "group relative px-2 py-1.5 w-full rounded-md flex items-center gap-x-2 hover:bg-zinc-700/10  hover:dark:bg-zinc-700/50  transition ",
         params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700"
       )}
     >
