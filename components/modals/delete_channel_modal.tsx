@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import qs from "query-string";
 
 import {
@@ -22,10 +22,10 @@ export const DeleteChannelModal = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const params = useParams();
+  // const params = useParams();
 
   const isModalOpen = isOpen && type === "deleteChannel";
-  const { channel } = data;
+  const { server, channel } = data;
 
   const onClick = async () => {
     try {
@@ -33,13 +33,13 @@ export const DeleteChannelModal = () => {
       const url = qs.stringifyUrl({
         url: `/api/channels/${channel?.id}`,
         query: {
-          serverId: params?.serverId,
+          serverId: server?.id,
         },
       });
       await axios.delete(url);
       onClose();
       router.refresh();
-      router.push(`/servers/${params?.serverId}`);
+      router.push(`/servers/${server?.id}`);
     } catch (error) {
       console.log(error);
     } finally {
