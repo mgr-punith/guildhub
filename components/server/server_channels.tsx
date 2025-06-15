@@ -11,6 +11,7 @@ import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
 import { Hash, Lock, Mic, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ActionToolTip } from "../action-tooltip";
+import { useModal } from "@/hooks/use-modal-store";
 
 interface ServerChannelsProps {
   channel: Channel;
@@ -22,9 +23,6 @@ const IconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video,
-  //   (
-  //     <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-300" icon={faVideo} />
-  //   ),
 };
 
 export const ServerChannels = ({
@@ -32,6 +30,7 @@ export const ServerChannels = ({
   server,
   role,
 }: ServerChannelsProps) => {
+  const {onOpen} = useModal();
   const router = useRouter();
   const params = useParams();
 
@@ -65,6 +64,7 @@ export const ServerChannels = ({
           </ActionToolTip>
           <ActionToolTip label="Delete">
             <FontAwesomeIcon
+              onClick={()=>onOpen("deleteChannel", {server, channel})}
               className="w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300  opacity-0 group-hover:opacity-100 transition-opacity duration-200 "
               icon={faTrashCan}
             />

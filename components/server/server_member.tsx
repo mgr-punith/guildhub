@@ -13,8 +13,8 @@ interface ServerMemberProps {
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
-  [MemberRole.MODERATOR]: <ShieldMinus className="h-4 w-4 ml-auto    text-sky-700" />,
-  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 ml-auto    text-red-700" />,
+  [MemberRole.MODERATOR]: <ShieldMinus className="h-4 w-4 ml-auto text-sky-700" />,
+  [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 ml-auto text-red-700" />,
 };
 export const ServerMember = ({ member, server }: ServerMemberProps) => {
   const params = useParams();
