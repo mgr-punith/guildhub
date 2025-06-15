@@ -58,6 +58,7 @@ export const ServerChannels = ({
         <div className="ml-auto flex items-center gap-x-2 ">
           <ActionToolTip label="Edit">
             <FontAwesomeIcon
+              onClick={()=>onOpen("editChannel", {server, channel})}
               className="w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300  opacity-0 group-hover:opacity-100 transition-opacity duration-200 "
               icon={faPencil}
             />
