@@ -42,8 +42,6 @@ const serverIdPage = async ({ params }: ServerIdPageProp) => {
   if (initialChannel?.name !== "general") {
     console.log("CREATE THE NEW SERVER");
   }
-  return redirect(
-    `/servers/${params?.serverId}/channels/${initialChannel?.id}`
-  );
+  return redirect(`/servers/${serverId}/channels/${initialChannel?.id}`);
 };
 export default serverIdPage;
