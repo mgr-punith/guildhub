@@ -1,6 +1,8 @@
+import { ChatHeader } from "@/components/chat/chat_header";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
+
 import { redirect } from "next/navigation";
 
 interface ChannelIdPageProps {
@@ -38,8 +40,11 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   }
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-      hey channel id page
-      <div>sdkjb</div>
+      <ChatHeader
+        name={channel.name}
+        serverId={channel.serverId}
+        type="channel"
+      />
     </div>
   );
 };
