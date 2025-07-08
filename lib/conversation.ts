@@ -29,7 +29,7 @@ const findConversation = async (memberOneId: string, memberTwoId: string) => {
         },
         memberTwo: {
           include: {
-            profile: false,
+            profile: true,
           },
         },
       },
