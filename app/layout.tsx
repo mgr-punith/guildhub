@@ -8,6 +8,8 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css"; // Import Font Awesome CSS
+import { SocketProvider } from "@/components/providers/socket-provider";
+
 config.autoAddCss = false; // Prevent Font Awesome from auto-injecting its CSS
 
 const font = Open_Sans({
@@ -34,8 +36,10 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="guildhub-theme"
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
