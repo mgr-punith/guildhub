@@ -1,4 +1,5 @@
 import { ChatHeader } from "@/components/chat/chat_header";
+import { ChatInput } from "@/components/chat/chat_Input";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
@@ -45,6 +46,18 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         serverId={channel.serverId}
         type="channel"
       />
+      <div className="flex-1 overflow-y-auto  bg-gray-700">Future Messages</div>
+      <div className="border-t border-gray-600">
+        <ChatInput
+          name={channel.name}
+          type="channel"
+          apiUrl="/api/socket/messages"
+          query={{
+            channelId: channel.id,
+            serverId: channel.serverId,
+          }}
+        />
+      </div>
     </div>
   );
 };
