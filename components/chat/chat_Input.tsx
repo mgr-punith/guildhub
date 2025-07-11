@@ -2,9 +2,13 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
+import qs from "query-string";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
-import { Plus } from "lucide-react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFaceSmileBeam, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -27,8 +31,17 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (value: z.infer<typeof formSchema>) => {
-    console.log(value);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      });
+
+      await axios.post(url, values);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -44,14 +57,25 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   <button
                     type="button"
                     onClick={() => {}}
-                    className="absolute top-6 left-8 h-6 w-6 bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
+                    className="absolute top-6 left-8 h-6 w-6  flex items-center justify-center"
                   >
-                    <Plus className="text-white dark:text-[#313338]" />
+                    <FontAwesomeIcon
+                      icon={faPlus}
+                      className="text-white dark:text-[#313338] "
+                      style={{ color: "#ffffff" }}
+                    />
                   </button>
                   <input
                     disabled={isLoading}
                     className="w-full pl-14 pr-4 py-2 rounded-md bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 text-zinc-600 dark:text-zinc-200 focus:outline-none focus:ring-0 focus:ring-offset-0"
+                    placeholder={`Message  ${
+                      type === "conversation" ? name : "#" + name
+                    }`}
+                    {...field}
                   />
+                  <div className="absolute top-6 right-8">
+                    <FontAwesomeIcon icon={faFaceSmileBeam} size="xl" />
+                  </div>
                 </div>
               </FormControl>
             </FormItem>
