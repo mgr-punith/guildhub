@@ -46,8 +46,8 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         serverId={channel.serverId}
         type="channel"
       />
-      <div className="flex-1 overflow-y-auto  bg-gray-700">Future Messages</div>
-      <div className="border-t border-gray-600">
+      <div className="flex-1">Future Messages</div>
+      <div>
         <ChatInput
           name={channel.name}
           type="channel"

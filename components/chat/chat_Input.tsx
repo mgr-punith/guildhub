@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import { Plus } from "lucide-react";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -29,5 +31,33 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
     console.log(value);
   };
 
-  return <div>Chat Input!</div>;
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <div className="relative p-4 pb-6 bg-[#313338]">
+                  <button
+                    type="button"
+                    onClick={() => {}}
+                    className="absolute top-6 left-8 h-6 w-6 bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
+                  >
+                    <Plus className="text-white dark:text-[#313338]" />
+                  </button>
+                  <input
+                    disabled={isLoading}
+                    className="w-full pl-14 pr-4 py-2 rounded-md bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 text-zinc-600 dark:text-zinc-200 focus:outline-none focus:ring-0 focus:ring-offset-0"
+                  />
+                </div>
+              </FormControl>
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  );
 };
