@@ -1,6 +1,10 @@
 "use client";
 
 import { UploadDropzone } from "@/lib/uploadthing";
+
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { X } from "lucide-react";
 import Image from "next/image";
 
@@ -34,10 +38,33 @@ export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
       </div>
     );
   }
+
+  if (value && fileType === "pdf") {
+    return (
+      <div className="relative flex items-center p-2 rounded-md bg-background/10 ">
+        <FontAwesomeIcon
+          icon={faFilePdf}
+          bounce
+          className="h-10 w-10  fill-red-400 stroke-red-600 "
+        />
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferer"
+          className="ml-2 text-sm text-red-500 dark:text-red-300 hover:underline"
+        >
+          {value}
+        </a>
+      </div>
+    );
+  }
   return (
     <div>
       <UploadDropzone
-        className="h-52 w-52 shadow-xl text-black bg-indigo-200 ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300 ut-ready:bg-black"
+        className="h-52 w-52 shadow-xl text-black bg-indigo-200 
+           ut-label:text-lg 
+           ut-allowed-content:ut-uploading:text-red-300 
+           ut-ready:bg-black"
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
           onChange(res?.[0].ufsUrl);

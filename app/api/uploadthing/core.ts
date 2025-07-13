@@ -5,7 +5,7 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 const f = createUploadthing();
 
 const handleAuth = () => {
-const userId = auth();
+  const userId = auth();
   if (!userId) throw new Error("Unauthorized");
   return { userId: userId };
 };
@@ -15,7 +15,10 @@ export const ourFileRouter = {
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
 
-  messageFile: f(["image", "pdf"])
+  messageFile: f({
+    image: { maxFileSize: "4MB" },
+    pdf: { maxFileSize: "4MB" },
+  })
     .middleware(() => handleAuth())
     .onUploadComplete(() => {}),
 } satisfies FileRouter;
