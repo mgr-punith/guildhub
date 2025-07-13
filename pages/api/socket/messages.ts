@@ -3,7 +3,6 @@ import { NextApiRequest } from "next";
 import { NextApiServerResponseServerIo } from "@/types";
 import { currentProfilePages } from "@/lib/current_profile_pages";
 import { db } from "@/lib/db";
-import { AwardIcon } from "lucide-react";
 
 export default async function handler(
   req: NextApiRequest,
