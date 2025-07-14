@@ -8,8 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceSmileBeam, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "@/hooks/use-modal-store";
+import { EmojiPicker } from "@/components/emoji_picker";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -24,6 +26,7 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+  const router = useRouter();
   const { onOpen } = useModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,6 +46,8 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       });
 
       await axios.post(url, values);
+      form.reset();
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +62,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <div className="relative p-4 pb-6 bg-[#313338]">
+                <div className="relative p-4 pb-6 dark:bg-[#313338]">
                   <button
                     type="button"
                     onClick={() => onOpen("messageFile", { apiUrl, query })}
@@ -65,8 +70,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                   >
                     <FontAwesomeIcon
                       icon={faPlus}
-                      className="text-white dark:text-[#313338] "
-                      style={{ color: "#ffffff" }}
+                      className="dark:text-white text-zinc-600 "
                     />
                   </button>
                   <input
@@ -78,7 +82,11 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                     {...field}
                   />
                   <div className="absolute top-6 right-8">
-                    <FontAwesomeIcon icon={faFaceSmileBeam} size="xl" />
+                    <EmojiPicker
+                      onChange={(emoji: string) =>
+                        field.onChange(`${field.value} ${emoji}`)
+                      }
+                    />
                   </div>
                 </div>
               </FormControl>
