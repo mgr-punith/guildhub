@@ -11,7 +11,7 @@ import Image from "next/image";
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  endpoint: "serverImage" | "messageFile";
+  endpoint: "messageFile" | "serverImage" ;
 }
 
 export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
@@ -55,6 +55,14 @@ export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
         >
           {value}
         </a>
+        <button
+          onClick={() => {
+            onChange("");
+          }}
+          className="bg-red-600 text-white p-1 rounded-full absolute top-0 right-0 shadow-2xl"
+        >
+          <X className="h-4 w-4" />
+        </button>
       </div>
     );
   }
@@ -64,7 +72,7 @@ export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
         className="h-52 w-52 shadow-xl text-black bg-indigo-200 
            ut-label:text-lg 
            ut-allowed-content:ut-uploading:text-red-300 
-           ut-ready:bg-black"
+           ut-ready:bg-yellow"
         endpoint={endpoint}
         onClientUploadComplete={(res) => {
           onChange(res?.[0].ufsUrl);
