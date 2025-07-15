@@ -9,6 +9,7 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css"; // Import Font Awesome CSS
 import { SocketProvider } from "@/components/providers/socket-provider";
+import { QueryProvider } from "@/components/providers/query_provider";
 
 config.autoAddCss = false; // Prevent Font Awesome from auto-injecting its CSS
 
@@ -38,7 +39,9 @@ export default function RootLayout({
           >
             <SocketProvider>
               <ModalProvider />
-              {children}
+              <QueryProvider>
+                {children}
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>

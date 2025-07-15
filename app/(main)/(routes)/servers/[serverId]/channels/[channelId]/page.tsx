@@ -1,9 +1,10 @@
 import { ChatHeader } from "@/components/chat/chat_header";
 import { ChatInput } from "@/components/chat/chat_Input";
+import { ChatMessages } from "@/components/chat/chat_Messages";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
 
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 interface ChannelIdPageProps {
@@ -47,9 +48,23 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         type="channel"
       />
 
-      <div className="flex-1 text-white px-4 py-2 overflow-y-auto">
+      {/* <div className="flex-1 text-white px-4 py-2 overflow-y-auto">
         Future Messages
-      </div>
+      </div> */}
+      <ChatMessages
+        name={channel.name}
+        chatId={channel.id}
+        member={member}
+        type="channel"
+        apiUrl="/api/messages"
+        socketUrl="api/socket/messages"
+        socketQuery={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
+        paramKey="channelId"
+        paramValue={channel.id}
+      />
 
       <div className="px-4 pb-4">
         <ChatInput
