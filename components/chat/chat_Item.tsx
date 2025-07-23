@@ -57,7 +57,7 @@ export const ChatItem = ({
   socketQuery,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  // const [isDeleting, setIsDeleting] = useState(false);
 
   const form = useForm<z.infer<typeof fromSchema>>({
     resolver: zodResolver(fromSchema),
@@ -66,8 +66,22 @@ export const ChatItem = ({
     },
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const isLoading = form.formState.isSubmitting;
+
+  const onSubmit = async (values: z.infer<typeof fromSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: `/${socketUrl}/${id}`,
+        query: socketQuery,
+      });
+
+      await axios.patch(url, values);
+
+      form.reset();
+      setIsEditing(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -170,6 +184,7 @@ export const ChatItem = ({
                       <FormControl>
                         <div className="relative w-auto">
                           <Input
+                            disabled={isLoading}
                             className="p-2 w-full bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 "
                             placeholder="Edit your msg..."
                             {...field}
@@ -179,7 +194,7 @@ export const ChatItem = ({
                               }
                               if (e.key === "Enter" && !e.shiftKey) {
                                 e.preventDefault();
-                                form.handleSubmit(onSubmit);
+                                form.handleSubmit(onSubmit)();
                               }
                             }}
                           />
@@ -188,12 +203,12 @@ export const ChatItem = ({
                     </FormItem>
                   )}
                 />
-                <Button size="sm" variant="primary">
+                <Button disabled={isLoading} size="sm" variant="primary">
                   Save
                 </Button>
               </form>
               <span className="text-[12px] mt-1 text-zinc-400">
-                Press escape to exit, Enter to save
+                Press &quot;Escape&quot; to EXIT, &quot;Enter&quot; to SAVE
               </span>
             </Form>
           )}

@@ -42,14 +42,12 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   }
   return (
     <div className="flex flex-col h-screen bg-white dark:bg-[#313338]">
-      {/* Top fixed header */}
       <ChatHeader
         name={channel.name}
         serverId={channel.serverId}
         type="channel"
       />
 
-      {/* Scrollable ChatMessages */}
       <div className="flex-1 overflow-y-auto ">
         <ChatMessages
           name={channel.name}
@@ -67,7 +65,6 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         />
       </div>
 
-      {/* Bottom fixed input */}
       <div className="px-4 pb-4">
         <ChatInput
           name={channel.name}
