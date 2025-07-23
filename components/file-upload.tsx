@@ -7,15 +7,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { X } from "lucide-react";
 import Image from "next/image";
+import path from "path";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  endpoint: "messageFile" | "serverImage" ;
+  endpoint: "messageFile" | "serverImage";
 }
 
 export const FileUplaod = ({ onChange, value, endpoint }: FileUploadProps) => {
-  const fileType = value?.split(".").pop();
+  const fileType = value ? path.extname(value).slice(1) : undefined;
 
   if (value && fileType !== "pdf") {
     return (

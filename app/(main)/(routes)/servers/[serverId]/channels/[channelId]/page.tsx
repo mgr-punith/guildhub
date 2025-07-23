@@ -41,31 +41,33 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     redirect("/");
   }
   return (
-    <div className="flex flex-col h-full min-h-screen bg-white dark:bg-[#313338]">
+    <div className="flex flex-col h-screen bg-white dark:bg-[#313338]">
+      {/* Top fixed header */}
       <ChatHeader
         name={channel.name}
         serverId={channel.serverId}
         type="channel"
       />
 
-      {/* <div className="flex-1 text-white px-4 py-2 overflow-y-auto">
-        Future Messages
-      </div> */}
-      <ChatMessages
-        name={channel.name}
-        chatId={channel.id}
-        member={member}
-        type="channel"
-        apiUrl="/api/messages"
-        socketUrl="api/socket/messages"
-        socketQuery={{
-          channelId: channel.id,
-          serverId: channel.serverId,
-        }}
-        paramKey="channelId"
-        paramValue={channel.id}
-      />
+      {/* Scrollable ChatMessages */}
+      <div className="flex-1 overflow-y-auto ">
+        <ChatMessages
+          name={channel.name}
+          chatId={channel.id}
+          member={member}
+          type="channel"
+          apiUrl="/api/messages"
+          socketUrl="api/socket/messages"
+          socketQuery={{
+            channelId: channel.id,
+            serverId: channel.serverId,
+          }}
+          paramKey="channelId"
+          paramValue={channel.id}
+        />
+      </div>
 
+      {/* Bottom fixed input */}
       <div className="px-4 pb-4">
         <ChatInput
           name={channel.name}

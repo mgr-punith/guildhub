@@ -51,9 +51,9 @@ export const ChatMessages = ({
 
   if (status === "loading") {
     return (
-      <div className="flex felx-col flex-1 justify-center items-center">
+      <div className="flex flex-col flex-1 justify-center items-center">
         <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
-        <p className="text-xs text-zinc-500  dark:text-zinc-50">
+        <p className="text-xs text-zinc-500 dark:text-zinc-50">
           Loading Messages...
         </p>
       </div>
@@ -62,38 +62,35 @@ export const ChatMessages = ({
 
   if (status === "error") {
     return (
-      <div className="flex felx-col flex-1 justify-center items-center">
+      <div className="flex flex-col flex-1 justify-center items-center">
         <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
-        <p className="text-xs text-zinc-500  dark:text-zinc-50">
+        <p className="text-xs text-zinc-500 dark:text-zinc-50">
           Something went wrong!
         </p>
       </div>
     );
   }
+
   return (
-    <div className="flex-1 flex flex-col py-4 overflow-y-auto ">
-      <div className="flex-1" />
+    <div className="flex-1 flex flex-col">
       <ChatWelcome type={type} name={name} />
-      <div className="flex flex-col-reverse mt-auto">
+      <div className="flex flex-col-reverse px-4 py-4">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
             {group.items.map((message: messageWithMemberWithProfile) => (
-              <div key={message.id}>
-                {/* {message.content} */}
-                <ChatItem
-                  key={message.id}
-                  id={message.id}
-                  member={message.member}
-                  currentMember={member}
-                  content={message.content}
-                  fileUrl={message.fileUrl}
-                  deleted={message.deleted}
-                  timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                  isUpdated={message.updatedAt !== message.createdAt}
-                  socketUrl={socketUrl}
-                  socketQuery={socketQuery}
-                />
-              </div>
+              <ChatItem
+                key={message.id}
+                id={message.id}
+                member={message.member}
+                currentMember={member}
+                content={message.content}
+                fileUrl={message.fileUrl}
+                deleted={message.deleted}
+                timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                isUpdated={message.updatedAt !== message.createdAt}
+                socketUrl={socketUrl}
+                socketQuery={socketQuery}
+              />
             ))}
           </Fragment>
         ))}
