@@ -5,6 +5,8 @@ import { UserAvatar } from "@/components/user-avatar";
 import { ActionToolTip } from "@/components/action-tooltip";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "../ui/button";
+import { useModal } from "@/hooks/use-modal-store";
 
 import { Edit, ShieldAlert, ShieldMinus, Trash } from "lucide-react";
 import Image from "next/image";
@@ -17,7 +19,6 @@ import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "../ui/button";
 
 interface ChatItemProps {
   id: string;
@@ -57,7 +58,7 @@ export const ChatItem = ({
   socketQuery,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  // const [isDeleting, setIsDeleting] = useState(false);
+  const { onOpen } = useModal();
 
   const form = useForm<z.infer<typeof fromSchema>>({
     resolver: zodResolver(fromSchema),
@@ -227,7 +228,15 @@ export const ChatItem = ({
             </ActionToolTip>
           )}
           <ActionToolTip label="Delete">
-            <Trash className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300" />
+            <Trash
+              onClick={() => {
+                onOpen("deleteMessage", {
+                  apiUrl: `/${socketUrl}/${id}`,
+                  query: socketQuery,
+                });
+              }}
+              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
+            />
           </ActionToolTip>
         </div>
       )}

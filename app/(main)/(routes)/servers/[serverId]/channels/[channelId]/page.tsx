@@ -48,7 +48,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         type="channel"
       />
 
-      <div className="flex-1 overflow-y-auto ">
+      <div className="flex-1 overflow-y-auto hide-scrollbar ">
         <ChatMessages
           name={channel.name}
           chatId={channel.id}

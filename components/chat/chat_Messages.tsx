@@ -72,7 +72,7 @@ export const ChatMessages = ({
   }
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col ">
       <ChatWelcome type={type} name={name} />
       <div className="flex flex-col-reverse px-4 py-4">
         {data?.pages?.map((group, i) => (
