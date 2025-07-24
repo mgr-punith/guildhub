@@ -2,8 +2,10 @@
 
 import { Member, Message, Profile } from "@prisma/client";
 import { ChatWelcome } from "@/components/chat/chat_Welcome";
-import { UseQueryChat } from "@/hooks/use_ChatQuery";
 import { ChatItem } from "@/components/chat/chat_Item";
+
+import { useChatQuery } from "@/hooks/use_ChatQuery";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 import { Loader2, ServerCrash } from "lucide-react";
 import { Fragment } from "react";
@@ -41,15 +43,20 @@ export const ChatMessages = ({
   type,
 }: ChatMessageProps) => {
   const queryKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
+  const updateKey = `chat:${chatId}:messages.update`;
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    UseQueryChat({
+    useChatQuery({
       queryKey,
       apiUrl,
       paramKey,
       paramValue,
     });
 
-  if (status === "loading") {
+  useChatSocket({ queryKey, addKey, updateKey });
+
+  if (status === "pending") {
     return (
       <div className="flex flex-col flex-1 justify-center items-center">
         <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
