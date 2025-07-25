@@ -82,7 +82,7 @@ export const ChatItem = ({
   const onSubmit = async (values: z.infer<typeof fromSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: `/${socketUrl}/${id}`,
+        url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
 
@@ -120,7 +120,7 @@ export const ChatItem = ({
         >
           <UserAvatar src={member.profile.imageUrl} />
         </div>
-        <div className="flex flex-col max-w-5xl bg-zinc-300 dark:bg-zinc-800 p-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl hover:bg-black/35">
+        <div className="flex flex-col max-w-5xl bg-zinc-300 dark:bg-zinc-800 p-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl hover:bg-black/35 ">
           <div className="flex items-center gap-x-2 ">
             <div className="flex items-center ">
               <p
@@ -234,7 +234,7 @@ export const ChatItem = ({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-0 -right-8 bg-white dark:bg-zinc-900 border rounded-sm">
+        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-0 -right-1 bg-white dark:bg-zinc-900 border rounded-sm">
           {canEditMessage && (
             <ActionToolTip label="Edit">
               <Edit
@@ -249,7 +249,7 @@ export const ChatItem = ({
             <Trash
               onClick={() => {
                 onOpen("deleteMessage", {
-                  apiUrl: `/${socketUrl}/${id}`,
+                  apiUrl: `${socketUrl}/${id}`,
                   query: socketQuery,
                 });
               }}
