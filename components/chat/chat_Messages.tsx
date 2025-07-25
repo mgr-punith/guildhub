@@ -90,7 +90,10 @@ export const ChatMessages = ({
   }
 
   return (
-    <div ref={chatRef} className="flex-1 flex flex-col py-4 overflow-y-auto">
+    <div
+      ref={chatRef}
+      className="flex-1 flex flex-col py-4  hide-scrollbar"
+    >
       {hasNextPage && (
         <div className="flex justify-center">
           {isFetchingNextPage ? (
@@ -105,6 +108,11 @@ export const ChatMessages = ({
           )}
         </div>
       )}
+
+      {/* just to remove welcome msg if there is any msg starts ...........................*/}
+      {/* {!hasNextPage && !data?.pages?.[0]?.items?.length && (
+        <ChatWelcome type={type} name={name} />
+      )} */}
 
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
 
