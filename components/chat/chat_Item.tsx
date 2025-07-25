@@ -112,7 +112,7 @@ export const ChatItem = ({
   const isImage = !isPdf && fileUrl;
 
   return (
-    <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full ">
+    <div className="relative group flex items-center p-4 transition w-fit ">
       <div className="group flex gap-x-2 items-start w-full">
         <div
           onClick={onMemberClick}
@@ -120,8 +120,8 @@ export const ChatItem = ({
         >
           <UserAvatar src={member.profile.imageUrl} />
         </div>
-        <div className="flex flex-col w-full">
-          <div className="flex items-center gap-x-2">
+        <div className="flex flex-col w-fit bg-zinc-300 dark:bg-zinc-800 p-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl hover:bg-black/35">
+          <div className="flex items-center gap-x-2 ">
             <div className="flex items-center ">
               <p
                 onClick={onMemberClick}
@@ -232,14 +232,14 @@ export const ChatItem = ({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="hidden group-hover:flex itmes-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-900 border rounded-sm">
+        <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-0 -right-8 bg-white dark:bg-zinc-900 border rounded-sm">
           {canEditMessage && (
             <ActionToolTip label="Edit">
               <Edit
                 onClick={() => {
                   setIsEditing(true);
                 }}
-                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
+                className="cursor-pointer  w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
               />
             </ActionToolTip>
           )}
@@ -251,7 +251,7 @@ export const ChatItem = ({
                   query: socketQuery,
                 });
               }}
-              className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
+              className="cursor-pointer  w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300"
             />
           </ActionToolTip>
         </div>
