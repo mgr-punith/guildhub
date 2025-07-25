@@ -120,7 +120,7 @@ export const ChatItem = ({
         >
           <UserAvatar src={member.profile.imageUrl} />
         </div>
-        <div className="flex flex-col w-fit bg-zinc-300 dark:bg-zinc-800 p-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl hover:bg-black/35">
+        <div className="flex flex-col max-w-5xl bg-zinc-300 dark:bg-zinc-800 p-3 rounded-tr-2xl rounded-bl-2xl rounded-br-2xl hover:bg-black/35">
           <div className="flex items-center gap-x-2 ">
             <div className="flex items-center ">
               <p
@@ -172,20 +172,22 @@ export const ChatItem = ({
             </div>
           )}
           {!fileUrl && !isEditing && (
-            <span
-              className={cn(
-                "text-sm text-zinc-600 dark:text-zinc-300",
-                deleted &&
-                  "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
-              )}
-            >
-              {content}
-              {isUpdated && !deleted && (
-                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-                  (edited)
-                </span>
-              )}
-            </span>
+            <div className="w-full">
+              <span
+                className={cn(
+                  "text-sm text-zinc-600 dark:text-zinc-300 break-words whitespace-pre-wrap",
+                  deleted &&
+                    "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
+                )}
+              >
+                {content}
+                {isUpdated && !deleted && (
+                  <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                    (edited)
+                  </span>
+                )}
+              </span>
+            </div>
           )}
           {!fileUrl && isEditing && (
             <Form {...form}>
