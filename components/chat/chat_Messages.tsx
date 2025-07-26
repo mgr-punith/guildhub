@@ -8,7 +8,7 @@ import { useChatQuery } from "@/hooks/use_ChatQuery";
 import { useChatSocket } from "@/hooks/use-chat-socket";
 
 import { Loader2, ServerCrash } from "lucide-react";
-import { ElementRef, Fragment, useRef } from "react";
+import { ElementRef, Fragment, RefObject, useRef } from "react";
 import { format } from "date-fns";
 import { useChatScroll } from "@/hooks/use-ChatScroll";
 
@@ -47,8 +47,8 @@ export const ChatMessages = ({
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages.update`;
 
-  const chatRef = useRef<ElementRef<"div">>(null);
-  const bottomRef = useRef<ElementRef<"div">>(null);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
@@ -60,12 +60,12 @@ export const ChatMessages = ({
 
   useChatSocket({ queryKey, addKey, updateKey });
   useChatScroll({
-    chatRef,
-    bottomRef,
-    loadMore: fetchNextPage,
-    shouldLoadMOre: !isFetchingNextPage && !!hasNextPage,
-    count: data?.pages?.[0]?.items?.length ?? 0,
-  });
+  chatRef: chatRef as RefObject<HTMLDivElement>,
+  bottomRef: bottomRef as RefObject<HTMLDivElement>,
+  loadMore: fetchNextPage,
+  shouldLoadMOre: !isFetchingNextPage && !!hasNextPage,
+  count: data?.pages?.[0]?.items?.length ?? 0,
+});
 
   if (status === "pending") {
     return (
@@ -90,10 +90,7 @@ export const ChatMessages = ({
   }
 
   return (
-    <div
-      ref={chatRef}
-      className="flex-1 flex flex-col py-4 hide-scrollbar"
-    >
+    <div ref={chatRef} className="flex-1 flex flex-col py-4 hide-scrollbar">
       {hasNextPage && (
         <div className="flex justify-center">
           {isFetchingNextPage ? (
