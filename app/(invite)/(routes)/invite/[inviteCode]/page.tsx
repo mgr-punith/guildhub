@@ -3,11 +3,16 @@ import { db } from "@/lib/db";
 import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-// correct PageProps interface for Next.js 15+
+// Option 1: Use Next.js built-in PageProps type
+// type PageProps = {
+//   params: Promise<{ inviteCode: string }>;
+//   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+// };
+
+// Option 2: Or define it more explicitly
 interface INVITECODEPROP {
-  params: Promise<{
-    inviteCode: string;
-  }>;
+  params: Promise<{ inviteCode: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const InviteCodePage = async ({ params }: INVITECODEPROP) => {
