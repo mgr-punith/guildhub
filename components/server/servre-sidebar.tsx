@@ -5,11 +5,12 @@ import { currentUser } from "@clerk/nextjs/server";
 import { ChannelType, MemberRole } from "@prisma/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag, faVideo } from "@fortawesome/free-solid-svg-icons";
+import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
+
 
 import { ServerHeader } from "./server-header";
 import { ServerSearch } from "./server-search";
 import { ScrollArea } from "../ui/scroll-area";
-import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { ServerSection } from "./server_section";
 import { ServerChannels } from "./server_channels";
