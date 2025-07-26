@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { serverId: string } }
+  { params }: { params: Promise<{ serverId: string }> }
 ) {
   const { serverId } = await params;
-  
+
   try {
     const profile = await currentProfile();
 

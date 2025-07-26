@@ -9,13 +9,13 @@ import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 interface MemberIdPageProps {
-  params: {
+  params: Promise<{
     memberId: string;
     serverId: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     video?: string;
-  };
+  }>;
 }
 
 const MemberIDPage = async ({ params, searchParams }: MemberIdPageProps) => {

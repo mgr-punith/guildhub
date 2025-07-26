@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 interface ServerIdPageProp {
-  params: { serverId: string };
+  params: Promise<{ serverId: string }>;
 }
 
 const serverIdPage = async ({ params }: ServerIdPageProp) => {
