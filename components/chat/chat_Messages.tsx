@@ -14,11 +14,21 @@ import { useChatScroll } from "@/hooks/use-ChatScroll";
 
 const DATE_FORMAT = "d MMM yyyy , HH:mm";
 
-type messageWithMemberWithProfile = Message & {
+type MessageWithMemberWithProfile = Message & {
   member: Member & {
     profile: Profile;
   };
 };
+
+interface ChatQueryResponse {
+  items: MessageWithMemberWithProfile[];
+  nextCursor?: string;
+}
+
+interface InfiniteQueryData {
+  pages: ChatQueryResponse[];
+  pageParams: unknown[];
+}
 
 interface ChatMessageProps {
   name: string;
@@ -47,8 +57,8 @@ export const ChatMessages = ({
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages.update`;
 
-  const chatRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const chatRef = useRef<ElementRef<"div">>(null);
+  const bottomRef = useRef<ElementRef<"div">>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
@@ -56,16 +66,22 @@ export const ChatMessages = ({
       apiUrl,
       paramKey,
       paramValue,
-    });
+    }) as {
+      data: InfiniteQueryData | undefined;
+      fetchNextPage: () => void;
+      hasNextPage: boolean;
+      isFetchingNextPage: boolean;
+      status: "pending" | "error" | "success";
+    };
 
   useChatSocket({ queryKey, addKey, updateKey });
   useChatScroll({
-  chatRef: chatRef as RefObject<HTMLDivElement>,
-  bottomRef: bottomRef as RefObject<HTMLDivElement>,
-  loadMore: fetchNextPage,
-  shouldLoadMOre: !isFetchingNextPage && !!hasNextPage,
-  count: data?.pages?.[0]?.items?.length ?? 0,
-});
+    chatRef: chatRef as RefObject<HTMLDivElement>,
+    bottomRef: bottomRef as RefObject<HTMLDivElement>,
+    loadMore: fetchNextPage,
+    shouldLoadMOre: !isFetchingNextPage && !!hasNextPage,
+    count: data?.pages?.[0]?.items?.length ?? 0,
+  });
 
   if (status === "pending") {
     return (
@@ -116,7 +132,7 @@ export const ChatMessages = ({
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
-            {group.items.map((message: messageWithMemberWithProfile) => (
+            {group.items.map((message: MessageWithMemberWithProfile) => (
               <ChatItem
                 key={message.id}
                 id={message.id}
