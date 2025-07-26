@@ -1,11 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  faPencil,
-  faTrashCan,
-  faVideo,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
 import { Hash, Lock, Mic, Video } from "lucide-react";
