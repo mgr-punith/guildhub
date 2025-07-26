@@ -10,10 +10,11 @@ import { ChannelType } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 interface ChannelIdPageProps {
-  params: {
+  params: Promise<{
     serverId: string;
     channelId: string;
-  };
+  }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
