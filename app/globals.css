@@ -139,3 +139,14 @@ body,
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
+
+.thin-scrollbar {
+  scrollbar-width: thin;            /* Firefox */
+  scrollbar-color: #999 #f0f0f0;    /* thumb and track in Firefox */
+}
+
+/* For Chrome, Edge, and Safari */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;    /* thin vertical scrollbar */
+  height: 6px;   /* thin horizontal scrollbar */
+}

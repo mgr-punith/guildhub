@@ -14,13 +14,16 @@ interface MemberIdPageProps {
     serverId: string;
   };
   searchParams: {
-    video?: boolean;
+    video?: string;
   };
 }
 
 const MemberIDPage = async ({ params, searchParams }: MemberIdPageProps) => {
   const profile = await currentProfile();
   const { serverId, memberId } = await params;
+
+  const resolvedSearchParams = await searchParams;
+  const isVideoCall = resolvedSearchParams?.video === "true";
 
   if (!profile) {
     return <RedirectToSignIn />;
@@ -63,11 +66,11 @@ const MemberIDPage = async ({ params, searchParams }: MemberIdPageProps) => {
         type="conversation"
       />
 
-      {searchParams.video && (
+      {isVideoCall && (
         <MediaRoom chatId={conversation.id} video={true} audio={true} />
       )}
 
-      {!searchParams.video && (
+      {!isVideoCall && (
         <>
           <div className="flex-1 overflow-auto hide-scrollbar">
             <ChatMessages

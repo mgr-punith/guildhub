@@ -3,16 +3,18 @@ import { db } from "@/lib/db";
 import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
+// correct PageProps interface for Next.js 15+
 interface INVITECODEPROP {
-  params: {
+  params: Promise<{
     inviteCode: string;
-  };
+  }>;
 }
 
 const InviteCodePage = async ({ params }: INVITECODEPROP) => {
   const profile = await currentProfile();
 
-  const {inviteCode} = await params;
+  // Await the params Promise
+  const { inviteCode } = await params;
 
   if (!profile) {
     return <RedirectToSignIn />;
@@ -33,6 +35,11 @@ const InviteCodePage = async ({ params }: INVITECODEPROP) => {
     },
   });
 
+  // Check if user is already a member before creating a new membership
+  if (existingServer) {
+    return redirect(`/servers/${existingServer.id}`);
+  }
+
   const server = await db.server.update({
     where: {
       inviteCode: inviteCode,
@@ -52,9 +59,6 @@ const InviteCodePage = async ({ params }: INVITECODEPROP) => {
     return redirect(`/servers/${server.id}`);
   }
 
-  if (existingServer) {
-    return redirect(`/servers/${existingServer.id}`);
-  }
   return null;
 };
 

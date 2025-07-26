@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { MicIcon, ShieldMinusIcon, ShieldUser } from "lucide-react";
 
-
 import { ServerHeader } from "./server-header";
 import { ServerSearch } from "./server-search";
 import { ScrollArea } from "../ui/scroll-area";
@@ -85,7 +84,7 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-zinc-200 shadow-lg">
       <ServerHeader server={server} role={role} />
-      <ScrollArea className="flex-1 px-3">
+      <ScrollArea className="flex-1 px-3 overflow-y-auto thin-scrollbar mb-5">
         <div className="mt-2">
           <ServerSearch
             data={[
@@ -201,13 +200,20 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
               server={server}
             />
             <div className="space-y-[2px]">
-              {server.members.map((member) => (
-                <ServerMember 
-                key={member.id}
-                server={server}
-                member={member}
-                />
-              ))}
+              {server.members
+                .filter((memberItem) => {
+                  const isOwner = member?.id === memberItem.id;
+                  return !isOwner; // Don't show the current user  or owner
+                })
+                .map((member) => {
+                  return (
+                    <ServerMember
+                      key={member.id}
+                      server={server}
+                      member={member}
+                    />
+                  );
+                })}
             </div>
           </div>
         )}
